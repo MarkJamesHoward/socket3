@@ -19,6 +19,7 @@ app.get('/', function(req, res,next) {
 });
 
 var port = process.env.PORT || 1337;
+console.log(port)
 server.listen(port)
 
 
