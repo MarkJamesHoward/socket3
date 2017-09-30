@@ -11,6 +11,16 @@
             height: 50px;
             width: 50px;
             border-radius: 50%;
+            background-color: blue;
+            position: absolute;
+            top: 50px;
+            right: 20px;
+        }
+
+        #enemyTank {
+            height: 50px;
+            width: 50px;
+            border-radius: 50%;
             background-color: orange;
             position: absolute;
             top: 50px;
@@ -22,6 +32,9 @@
 <body onkeydown="move()">
 
     <div id="tank">
+    </div>
+
+    <div id="enemyTank">
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
@@ -39,14 +52,21 @@
             let tank = document.querySelector('#tank');
             tank.style.top = position + 'px'
 
-            socket.emit('TankPosition', position)
+            socket.emit('Tank2Position', position)
         }
 
         var socket = io.connect();
         socket.on('connect', (data) => {
             console.log('client connected')
-            socket.emit('TankPosition', 'enemy')
         });
+
+        socket.on('Tank1Position', (data) => {
+            // Show the position of Player2
+            console.log('updating EnemyTank position')
+            let enemyTank = document.querySelector('#enemyTank');
+            enemyTank.style.top = data + 'px'
+        })
+
     </script>
 
 </body>
