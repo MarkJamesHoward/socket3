@@ -1,4 +1,5 @@
-@if "%SCM_TRACE_LEVEL%" NEQ "4" @echo off
+echo Handling node.js deployment.
+
 
 :: ----------------------
 :: KUDU Deployment Script
