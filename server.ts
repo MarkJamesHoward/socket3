@@ -42,8 +42,8 @@ app.get('/Player2.html', function(req: any, res: any, next: any) {
     res.sendFile(__dirname + '/player2.html');
 });
 
-//var port = process.env.PORT || 1337;
-var port = 80;
+var port = process.env.PORT || 1337;
+//var port = 80;
 console.log(port)
 server.listen(port)
 
