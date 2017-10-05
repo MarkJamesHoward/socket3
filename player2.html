@@ -7,37 +7,13 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <style>
-        #tank {
-            height: 50px;
-            width: 50px;
-            border-radius: 50%;
-            background-color: blue;
-            position: absolute;
-            top: 50px;
-            right: 20px;
-        }
-
-        #enemyTank {
-            height: 50px;
-            width: 50px;
-            border-radius: 50%;
-            background-color: orange;
-            position: absolute;
-            top: 50px;
-            left: 20px;
-        }
     </style>
 </head>
 
 <body onkeydown="move()">
 
-    <div id="tank">
-    </div>
-
-    <div id="enemyTank">
-    </div>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.5.1/pixi.min.js"></script>
 
     <script>
         let position = 50;

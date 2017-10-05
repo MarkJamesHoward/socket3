@@ -1,46 +1,43 @@
-const app = require('express')();
-const server = require('http').createServer(app);
-const io = require('socket.io')(server);
+const express = require('express');
+const http = require('http')
+const socket = require('socket.io');
 
 import {Player} from './player'
-import {Game} from './game'
 
 let id: number = 1;
-let myGame = new Game();
+let players = new Array<Player>();
+
+const app = express();
+app.use(express.static(__dirname))
+
+const server = require('http').createServer(app);
+const io = socket(server);
 
 io.on('connection', (client: any) => {
 
+    console.log('server says client connected')
     //Store the new player and give an Id
-    let player = new Player(id++);
-    myGame.addPlayer(player)
+    var player = new Player(client.id);
+    player.xPos = 200;
+    player.yPos = 200;
+    players.push(player)
+    client.emit('YourID', client.id);
+    
+    //Let existing players add this new player to their screen
+    io.emit('NewPlayerArrived', players) 
 
-    client.on('Tank1Position', (msg: any) => {
+    client.on('TankPosition', (msg: Player) => {
         console.log('Message Received: ' + msg)
-        io.emit('Tank1Position', msg )
-    })
-
-    client.on('Tank2Position', (msg: any) => {
-        console.log('Message Received: ' + msg)
-        io.emit('Tank2Position', msg )
+        io.emit('TankPosition', msg )
     })
 
     client.on('disconnect', () => {
         console.log('client disconnected')
-
+       // this.players.delete(client.id)
     })
+
+    id++;
 })
-
-app.get('/', function(req: any, res: any, next: any) { 
-    res.sendFile(__dirname + '/index.html');
-});
-
-app.get('/Player1.html', function(req: any, res: any, next: any) { 
-    res.sendFile(__dirname + '/player1.html');
-});
-
-app.get('/Player2.html', function(req: any, res: any, next: any) { 
-    res.sendFile(__dirname + '/player2.html');
-});
 
 var port = process.env.PORT || 1337;
 //var port = 80;

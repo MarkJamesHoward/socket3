@@ -7,65 +7,17 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <style>
-        #tank {
-            height: 50px;
-            width: 50px;
-            border-radius: 50%;
-            background-color: orange;
-            position: absolute;
-            top: 50px;
-            left: 20px;
-        }
-
-        #enemyTank {
-            height: 50px;
-            width: 50px;
-            border-radius: 50%;
-            background-color: blue;
-            position: absolute;
-            top: 50px;
-            right: 20px;
-        }
+      
     </style>
 </head>
 
-<body onkeydown="move()">
-
-    <div id="tank">
-    </div>
-
-    <div id="enemyTank">
-    </div>
+<body>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.5.1/pixi.min.js"></script>
+    <script type="module" src="../clientJS/game.js"></script>
 
-    <script>
-        let position = 50;
-
-        function move() {
-            var key = event.keyCode;
-            if (key == 38)
-                position -= 5;
-            else
-                position += 5
- 
-            let tank = document.querySelector('#tank');
-            tank.style.top = position + 'px'
-
-            socket.emit('Tank1Position', position)
-        }
-
-        var socket = io.connect();
-        socket.on('connect', (data) => {
-            console.log('client connected')
-        });
-
-        socket.on('Tank2Position', (data) => {
-            // Show the position of Player2
-            console.log('updating EnemyTank position')
-            let enemyTank = document.querySelector('#enemyTank');
-            enemyTank.style.top = data + 'px'
-        })
+    <script>  
     </script>
 
 </body>
